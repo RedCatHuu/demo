@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>新規登録</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<!-- 名前とEmailの入力フォームを作成 -->
+		<form th:object="${userForm}" th:action="@{/newuser}" th:method="post">
+			<table>
+				<tr>
+					<th>名前</th>
+					<td>
+						<!-- userFormのnameフィールドとの紐づけ -->
+						<input type="text" th:field="*{name}">
+						<!-- バリデーションエラーメッセージ表示 -->
+						<!-- #fieldsの中にバリデーションエラーの情報が入っており、hasErrors('name')では指定したnameフィールドにエラーがある場合にtrueを返す。 -->
+						<!-- th:errors="*{name}" では、nameフィールドのエラーを展開して<span>の内容として表示させる。 -->
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>Email</th>
+					<td>
+						<!-- userFormのemailフィールドのとの紐づけ -->
+						<input type="text" th:field="*{email}">
+						<!-- バリデーションエラーメッセージ表示 -->
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="登録">
+		</form>
+		
+		<!-- ユーザー一覧画面へのリンク追加 -->
+		<a th:href="@{/users}">ユーザー一覧へ</a>
+		
+	</body>
+</html>
